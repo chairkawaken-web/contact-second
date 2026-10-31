@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,7 +22,7 @@
             background: white;
             padding: 32px 24px;
             border-radius: 12px;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
         }
 
         h1 {
@@ -63,6 +64,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="login-box">
         <h1>管理者ログイン</h1>
@@ -86,4 +88,5 @@
         </form>
     </div>
 </body>
+
 </html>

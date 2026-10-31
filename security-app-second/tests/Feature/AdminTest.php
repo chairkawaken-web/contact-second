@@ -29,8 +29,8 @@ class AdminTest extends TestCase
 
         $this->followingRedirects()
             ->post('/admin/login', [
-            'email' => 'admin@example.com',
-            'password' => 'password',
+                'email' => 'admin@example.com',
+                'password' => 'password',
             ])
             ->assertOk()
             ->assertSee('管理者画面')
