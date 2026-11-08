@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\AdminLoginRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AdminAuthController extends Controller
 {
@@ -16,13 +17,10 @@ class AdminAuthController extends Controller
     {
         $credentials = $request->validated();
 
-        $adminEmail = config('admin.email');
-        $adminPassword = config('admin.password');
-
-        if (
-            !hash_equals($adminEmail, $credentials['email']) ||
-            !hash_equals($adminPassword, $credentials['password'])
-        ) {
+        if (! Auth::guard('admin')->attempt([
+            'email' => $credentials['email'],
+            'password' => $credentials['password'],
+        ])) {
             return back()->withErrors([
                 'email' => 'メールアドレスまたはパスワードが正しくありません。',
             ]);
@@ -35,6 +33,7 @@ class AdminAuthController extends Controller
 
     public function logout(Request $request)
     {
+        Auth::guard('admin')->logout();
         $request->session()->forget('admin_logged_in');
 
         return redirect('/admin/login');
