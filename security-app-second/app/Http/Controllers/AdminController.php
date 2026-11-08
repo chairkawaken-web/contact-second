@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdateContactMessageRequest;
 use App\Models\ContactMessage;
-use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
@@ -18,5 +18,26 @@ class AdminController extends Controller
             'total' => $total,
             'today' => $today,
         ]);
+    }
+
+    public function edit(ContactMessage $message)
+    {
+        return view('admin.edit', ['contactMessage' => $message]);
+    }
+
+    public function update(UpdateContactMessageRequest $request, ContactMessage $message)
+    {
+        $validated = $request->validated();
+
+        $message->update($validated);
+
+        return redirect()->route('admin.index')->with('status', 'お問い合わせを更新しました。');
+    }
+
+    public function destroy(ContactMessage $message)
+    {
+        $message->delete();
+
+        return redirect()->route('admin.index')->with('status', 'お問い合わせを削除しました。');
     }
 }

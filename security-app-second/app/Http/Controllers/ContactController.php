@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ContactMessageStoreRequest;
 use App\Models\ContactMessage;
-use Illuminate\Http\Request;
 
 class ContactController extends Controller
 {
@@ -18,18 +18,12 @@ class ContactController extends Controller
     /**
      * お問い合わせを送信
      */
-    public function submit(Request $request)
+    public function submit(ContactMessageStoreRequest $request)
     {
-        // バリデーション
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email',
-            'message' => 'required|string',
-        ]);
+        $validated = $request->validated();
 
         ContactMessage::create($validated);
 
-        // 完了画面にデータを渡す
         return view('contact.thanks', [
             'name' => $validated['name'],
             'email' => $validated['email'],
